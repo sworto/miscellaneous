@@ -7,6 +7,10 @@ canv.height = 800
 canv.width = 1920
 const ctx = canv.getContext("2d")
 console.log(ctx)
+
+
+
+//Projection Functions
 function clear(){
     ctx.fillStyle = BACKGROUND
     ctx.fillRect(0,0,canv.width,canv.height)
@@ -18,26 +22,14 @@ function project(p){
     }
 }
 function fill(p,s,height){
-    ctx.fillStyle = FOREGROUND
+    //ctx.fillStyle = FOREGROUND
     ctx.fillRect(p.x-s/2,p.y-s/2,s,height)
 }
+
+
+
 //Audio
 const player = document.getElementById("playback")
-player.addEventListener("timeupdate",visualise)
-/*function foo(){
-    const localmul = 0.1
-    if(player.currentTime==0){
-        mul=0
-    }
-    console.log(player.currentTime)
-    mul += player.currentTime*localmul
-    clear()
-    const divi = 0.01
-    for(let i = -1; i<=1 ; i+=divi){
-
-        fill(project({x: i,y: 0}))
-    }
-}*/
 const context = new AudioContext()
 const source  = context.createMediaElementSource(player)
 const analyzer = context.createAnalyser()
@@ -45,14 +37,40 @@ source.connect(analyzer)
 analyzer.connect(context.destination)
 analyzer.fftSize = 2048
 const data = new Uint8Array(analyzer.frequencyBinCount)
+
+
+//Visualiser
 function visualise(){
     analyzer.getByteFrequencyData(data)
     console.log(data)
+    let avg = average(data)
+    console.log(avg)
     clear()
-    for(let i=0;i<data.length;i++){
-        fill(project({x: i/1024,y: 0}),0.5,data[i])
-        fill(project({x: -i/1024,y: 0}),0.5,data[i])
-        fill(project({x: i/1024,y: 0}),0.5,-data[i])
-        fill(project({x: -i/1024,y: 0}),0.5,-data[i])
+    for(let i=0;i<data.length;i+=2){
+        const multiplier = 2
+        let color = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`
+        ctx.fillStyle = color
+        let magnitude = data[i]*multiplier
+        if(magnitude <= avg*multiplier){
+            fill(project({x: 2*i/canv.width,y: 0}),1,0)
+            fill(project({x:2*-i/canv.width,y: 0}),1,0)
+            fill(project({x:2*i/canv.width,y: 0}),1,0)
+            fill(project({x:2*-i/canv.width,y: 0}),1,0)
+        }
+        else{
+            fill(project({x: 2*i/canv.width,y: 0}),1,magnitude-(avg*multiplier))
+            fill(project({x:2*-i/canv.width,y: 0}),1,magnitude-(avg*multiplier))
+            fill(project({x:2*i/canv.width,y: 0}),1,-magnitude+(avg*multiplier))
+            fill(project({x:2*-i/canv.width,y: 0}),1,-magnitude+(avg*multiplier))
+        }
+        
+        
     }
 }
+function average(arr){
+    const redu = arr.reduce((acc,val) => acc+val,0)
+    return redu/arr.length
+}
+
+
+setInterval(visualise,16)
