@@ -8,6 +8,8 @@ body{
     display: flex;
     flex-direction: column;
     align-items: left;
+    width: 100%;
+    max-width: 1920;
 }
 canvas{
     width: 95vw;
