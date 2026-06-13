@@ -9,3 +9,6 @@ body{
     flex-direction: column;
     align-items: left;
 }
+canvas{
+    width: 95vw;
+}
