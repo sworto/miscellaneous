@@ -1,4 +1,4 @@
-body{
+/*body{
     background-color: black;
     color: white;
 }
@@ -7,10 +7,35 @@ body{
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: left;
-    width: 100%;
-    max-width: 1920;
+    align-items: flex-start;
+    width: 95vw;
+    max-width: 1000px;
 }
 canvas{
     width: 95vw;
+    aspect-ratio: 16/7;
+}*/
+body {
+    background-color: black;
+    color: white;
+}
+
+#ToCenter {
+    margin: 0 auto;
+
+    width: 95vw;
+    max-width: 1900px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* or flex-start */
+}
+
+canvas,
+#playback {
+    width: 100%;
+}
+
+canvas {
+    aspect-ratio: 16 / 6;
 }
