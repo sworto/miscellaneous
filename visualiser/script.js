@@ -1,18 +1,17 @@
 //Canvas
-const canv = document.getElementById("abc")
-console.log(canv)
-const BACKGROUND = "#101010"
-const FOREGROUND = "#66cc00"
-canv.height = 800
+const canv = document.getElementById("VisualiserOverlay")
 canv.width = 1920
+canv.height = 800
+console.log(canv)
+const BACKGROUND = "black"
+const FOREGROUND = "#66cc00"
 const ctx = canv.getContext("2d")
 console.log(ctx)
 
 
-
 //Projection Functions
 function clear(){
-    ctx.fillStyle = BACKGROUND
+    ctx.fillStyle = "#000000"
     ctx.fillRect(0,0,canv.width,canv.height)
 }
 function project(p){
@@ -30,6 +29,7 @@ function fill(p,s,height){
 
 //Audio
 const player = document.getElementById("playback")
+player.style.width = canv.width + "px"
 const context = new AudioContext()
 const source  = context.createMediaElementSource(player)
 const analyzer = context.createAnalyser()
@@ -47,7 +47,7 @@ function visualise(){
     console.log(avg)
     clear()
     for(let i=0;i<data.length;i+=2){
-        const multiplier = 2
+        const multiplier = 1.5
         let color = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`
         ctx.fillStyle = color
         let magnitude = data[i]*multiplier
@@ -73,4 +73,11 @@ function average(arr){
 }
 
 
+//File Management
+const filepicker = document.getElementById("fileselector")
+filepicker.addEventListener("change",()=>{player.src =URL.createObjectURL(filepicker.files[0])})
+
+
+
+//Runtime
 setInterval(visualise,16)

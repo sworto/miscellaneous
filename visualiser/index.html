@@ -1,11 +1,21 @@
+
 <!DOCTYPE html>
-<title>Music Visualiser</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Visualiser</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
 <body>
-        <canvas id="abc"></canvas> 
-        <audio id="playback" controls>
-            <source src="sample.mp3" type="audio/mpeg">
-            NOT SUPPORTED</audio>
+    <div id="ToCenter">
+        <canvas id="VisualiserOverlay"></canvas>
+        <audio id="playback" src="sample2.mp3" controls></audio>
+        <input type="file" id="fileselector" accept="audio/*,video/*">
+    </div>
 </body>
 
 <script src = "script.js"></script>
+
+</html>
