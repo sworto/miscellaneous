@@ -1,7 +1,7 @@
 //Canvas
 const canv = document.getElementById("VisualiserOverlay")
-canv.width = 1920
-canv.height = 800
+canv.width = window.innerWidth
+canv.height = window.innerHeight
 console.log(canv)
 const BACKGROUND = "black"
 const FOREGROUND = "#66cc00"
