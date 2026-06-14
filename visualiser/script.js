@@ -80,5 +80,5 @@ filepicker.addEventListener("change",()=>{player.src =URL.createObjectURL(filepi
 
 
 //Runtime
-setInterval(visualise,16)
+//setInterval(visualise,16)
 player.src = "sample2.mp3"
