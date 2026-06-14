@@ -78,7 +78,11 @@ const filepicker = document.getElementById("fileselector")
 filepicker.addEventListener("change",()=>{player.src =URL.createObjectURL(filepicker.files[0])})
 
 
-
 //Runtime
+player.addEventListener("play", async () => {
+    if (context.state === "suspended") {
+        await context.resume();
+    }
+});
+
 setInterval(visualise,16)
-player.src = "sample2.mp3"
