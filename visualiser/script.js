@@ -42,9 +42,9 @@ const data = new Uint8Array(analyzer.frequencyBinCount)
 //Visualiser
 function visualise(){
     analyzer.getByteFrequencyData(data)
-    console.log(data)
+    //console.log(data)
     let avg = average(data)
-    console.log(avg)
+    //console.log(avg)
     clear()
     for(let i=0;i<data.length;i+=2){
         const multiplier = 1.5
@@ -81,3 +81,4 @@ filepicker.addEventListener("change",()=>{player.src =URL.createObjectURL(filepi
 
 //Runtime
 setInterval(visualise,16)
+player.src = "sample2.mp3"
